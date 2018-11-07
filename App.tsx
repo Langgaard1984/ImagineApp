@@ -19,7 +19,7 @@ export default class App extends React.Component<null, State> {
   constructor(props) {
     super(props)
     this.state = {
-      userName: 'Enter userName',
+      userName: '',
       userInfo: null,
       noUser: false
     }
@@ -54,12 +54,11 @@ export default class App extends React.Component<null, State> {
     const {userInfo, userName, noUser} = this.state;
     return (
       <View style={styles.container}>
-        <TextInput value={userName} onChangeText={(value) => this.setState({userName: value})}/>
+        <TextInput placeholder="Type in username" value={userName} onChangeText={(value) => this.setState({userName: value})}/>
         <Button onPress={this.getUser} title="Get user"/>
         {noUser && <Text>No user found!</Text>}
         {userInfo &&
-          <UserInfo userInfo={userInfo} style={styles.image}/>
-        
+          <UserInfo userInfo={userInfo} style={styles.image}/>    
         }
       </View>
     );
