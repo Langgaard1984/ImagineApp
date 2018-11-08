@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 export interface Props {
     userInfo: {
@@ -18,9 +18,9 @@ export class UserInfo extends React.Component<Props, null> {
 render() {
     const {userInfo, style} = this.props;
     return (
-      <View>
+      <View style={styles.container}>
           <Image
-          style={style}
+          style={styles.image}
           source={{uri: userInfo.avatar}}
           />
           <Text>{userInfo.login}</Text>
@@ -29,3 +29,16 @@ render() {
     );
   }
 }
+
+const styles = StyleSheet.create({  
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    marginTop: 50,
+  },     
+  image: {
+    width: 50, 
+    height: 50,
+    }
+  })

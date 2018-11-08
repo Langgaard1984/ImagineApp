@@ -5,7 +5,8 @@ import { UserInfo } from './components/UserInfo';
 const apiUrl = "https://api.github.com"
 
 interface State {
-  userName: string;
+  token: string,
+  userName: string,
   userInfo: {
     login: string,
     name: string,
@@ -19,13 +20,14 @@ export default class App extends React.Component<null, State> {
   constructor(props) {
     super(props)
     this.state = {
+      token: '',
       userName: '',
       userInfo: null,
       noUser: false
     }
   }
 
-  getUser = () => {
+  getUserInfo = () => {
       let user = this.state.userName
         fetch( `${apiUrl}/users/${user}`, {
          method: 'GET'
@@ -51,12 +53,14 @@ export default class App extends React.Component<null, State> {
   }
 
   render() {
-    const {userInfo, userName, noUser} = this.state;
+    const {token, userInfo, userName, noUser} = this.state;
     return (
       <View style={styles.container}>
-        <TextInput placeholder="Type in username" value={userName} onChangeText={(value) => this.setState({userName: value})}/>
-        <Button onPress={this.getUser} title="Get user"/>
-        {noUser && <Text>No user found!</Text>}
+        <Image style={styles.image} source={{uri:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ei-sc-github.svg/768px-Ei-sc-github.svg.png"}}>
+          </Image>
+        <TextInput style={styles.input} placeholder="Type in username" value={userName} onChangeText={(value) => this.setState({userName: value})}/>
+        <Button onPress={this.getUserInfo} title="Get user"/>
+        {noUser && <Text style={styles.nouser}>No user found!</Text>}
         {userInfo &&
           <UserInfo userInfo={userInfo} style={styles.image}/>    
         }
@@ -70,10 +74,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 50,
   },
   image: {
-    width: 50, 
-    height: 50,
+    width: 100, 
+    height: 100,
   },
+  input: {
+    height: 40,
+    fontSize: 40,
+  },
+  nouser: {
+    marginTop: 50,
+    fontSize: 20
+  }
+
+
 });
