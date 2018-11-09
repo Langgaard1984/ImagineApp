@@ -10,6 +10,7 @@ export interface User {
 interface Props {
   user: User;
 }
+
 export class UserInfo extends React.Component<Props, null> {
   constructor(props) {
     super(props);

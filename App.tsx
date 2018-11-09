@@ -3,6 +3,11 @@ import { StyleSheet, Text, TextInput, Button, View, Image } from "react-native";
 import { UserInfo, User } from "./components/UserInfo";
 
 const apiUrl = "https://api.github.com";
+const params = {
+  client_id: "Iv1.bc3b35e3b9b4f1dc",
+  redirect_uri: "https://expo.io/@langgaard/ImagineApp",
+  state: "random"
+};
 
 interface State {
   token: string;
@@ -47,6 +52,42 @@ export default class App extends React.Component<null, State> {
       });
   };
 
+  // connectGithub = () => {
+  //   let token = this.state.token;
+  //   fetch(
+  //     this.encodeParams("https://github.com/login/oauth/authorize", params),
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: "a4c83af90193a591c02d022390dfcc61f7c6ceb6"
+  //       }
+  //     }
+  //   )
+  //     .then(response => response.json())
+  //     .then((data: any) => {
+  //       console.log("API connected");
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // };
+
+  // encodeParams = (url: string, parameters: {}) => {
+  //   let qs = "";
+  //   for (const key in parameters) {
+  //     if (parameters.hasOwnProperty(key)) {
+  //       const value = parameters[key];
+  //       qs += encodeURIComponent(key) + "=" + encodeURIComponent(value) + "&";
+  //     }
+  //   }
+  //   if (qs.length > 0) {
+  //     qs = qs.substring(0, qs.length - 1); //chop off last "&"
+  //     url = url + "?" + qs;
+  //   }
+
+  //   return url;
+  // };
+
   render() {
     const { token, userInfo, userName, noUser } = this.state;
     return (
@@ -58,6 +99,17 @@ export default class App extends React.Component<null, State> {
               "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Ei-sc-github.svg/768px-Ei-sc-github.svg.png"
           }}
         />
+  {/*      <TextInput
+          style={styles.input}
+          placeholder="Type in token"
+          value={token}
+          onChangeText={value => this.setState({ token: value })}
+        />
+        <Button
+          style={styles.button}
+          onPress={this.connectGithub}
+          title="Connect Github API"
+        />*/}
         <TextInput
           style={styles.input}
           placeholder="Type in username"
@@ -65,7 +117,7 @@ export default class App extends React.Component<null, State> {
           onChangeText={value => this.setState({ userName: value })}
         />
         <Button
-          style={styles.getUser}
+          style={styles.button}
           onPress={this.getUserInfo}
           title="Get user"
         />
@@ -91,7 +143,7 @@ const styles = StyleSheet.create({
     height: 30,
     fontSize: 25
   },
-  getUser: {
+  button: {
     marginTop: 10
   },
   noUser: {
